@@ -20,6 +20,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   DocController.getAssignedOfAUser
 );
-router.get("/word-tokenisation/", DocController.wordTokenise);
+router.post("/word-tokenisation/", DocController.wordTokenise);
 
 module.exports = router;
