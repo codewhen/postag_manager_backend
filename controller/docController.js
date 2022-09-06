@@ -121,7 +121,7 @@ exports.fetchAssignReqForDoc = async (req, res) => {
     const docId = req.params.docId;
     let frameSize = 5;
 
-    const users = await UserModel.find();
+    const users = await UserModel.find({ isAdmin: false });
     console.log(users);
     const docs = await DocItemsModel.find({ assignedTo: null, docId: docId });
 
