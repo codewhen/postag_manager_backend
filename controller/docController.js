@@ -163,7 +163,7 @@ exports.fetchAssignReqForDoc = async (req, res) => {
 exports.getAssignedOfAUser = async (req, res) => {
   try {
     const userId = req.user._id;
-    const docs = await DocItemsModel.find({ assignedTo: userId });
+    const docs = await DocItemsModel.find({ assignedTo: userId, ready: false });
     return res.status(200).json({
       docs: docs,
     });
@@ -197,6 +197,29 @@ exports.wordTokenise = async (req, res) => {
     // return res.status(200).json({
     //   output: output,
     // });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
+exports.markedReadySeq = async (req, res) => {
+  if (!req.body.ids) {
+    return res.status(400).json({
+      message: "ids is missing in body",
+    });
+  }
+  try {
+    const item = await DocItemsModel.updateMany(
+      { _id: { $in: req.body.ids }, output: { $ne: null } },
+      { ready: true }
+    );
+    return res.status(200).json({
+      success: true,
+      item: item,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({

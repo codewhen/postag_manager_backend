@@ -22,4 +22,6 @@ router.get(
 );
 router.post("/word-tokenisation/", DocController.wordTokenise);
 
+router.post("/markedReady", DocController.markedReadySeq);
+
 module.exports = router;

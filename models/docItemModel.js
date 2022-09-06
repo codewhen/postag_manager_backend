@@ -25,6 +25,10 @@ const DocItemSchema = new Schema({
     type: String,
     required: false,
   },
+  ready: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const DocItemsModel = mongoose.model("docItems", DocItemSchema);
