@@ -176,6 +176,50 @@ exports.assignReqForDoc = async (req, res) => {
   }
 };
 
+exports.assignReqForUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    let frameSize = 5;
+
+    const docs = await DocItemsModel.find({ assignedTo: null });
+
+    if (docs.length < frameSize) {
+      frameSize = docs.length;
+    }
+
+    let count = 0;
+
+    const isAssigned = await DocItemsModel.findOne({
+      assignedTo: userId,
+      ready: false,
+    });
+
+    if (isAssigned) {
+      return res.status(400).json({
+        message: "already assigned",
+      });
+    }
+
+    for (const doc of docs) {
+      await DocItemsModel.updateOne({ _id: doc._id }, { assignedTo: userId });
+      if (count < frameSize) {
+        count++;
+      } else {
+        break;
+      }
+    }
+
+    return res.status(200).json({
+      docs: docs,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
 exports.getAssignedOfAUser = async (req, res) => {
   try {
     const userId = req.user._id;
