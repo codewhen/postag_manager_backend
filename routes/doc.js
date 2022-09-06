@@ -16,9 +16,9 @@ router.post("/tag/:id", DocController.submitPossedItemDoc);
 router.post("/rearrange/:id", DocController.rearrangeDocItems);
 router.get("/tag/", DocController.getAllDocs);
 router.get(
-  "/fetchAssign/:docId",
+  "/assign/:docId",
   passport.authenticate("jwt", { session: false }),
-  DocController.fetchAssignReqForDoc
+  DocController.assignReqForDoc
 );
 
 router.get(

@@ -115,7 +115,7 @@ exports.getAllDocs = async (req, res) => {
   }
 };
 
-exports.fetchAssignReqForDoc = async (req, res) => {
+exports.assignReqForDoc = async (req, res) => {
   try {
     // const userId = req.user._id;
     const docId = req.params.docId;
