@@ -132,6 +132,22 @@ exports.assignReqForDoc = async (req, res) => {
     let count = 0;
     let userIndx = 0;
 
+    while (
+      users.length > userIndx &&
+      (await DocItemsModel.findOne({
+        assignedTo: users[userIndx]._id,
+        ready: false,
+      }))
+    ) {
+      userIndx++;
+    }
+
+    if (userIndx >= users.length) {
+      return res.status(500).json({
+        message: "No user available to assign",
+      });
+    }
+
     for (const doc of docs) {
       await DocItemsModel.updateOne(
         { _id: doc._id },
