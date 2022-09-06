@@ -31,6 +31,13 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   DocController.getAssignedOfAUser
 );
+
+router.get(
+  "/analytics/userwise",
+  passport.authenticate("jwt", { session: false }),
+  mustAdmin,
+  DocController.getAnalyticsUserWise
+);
 router.post("/word-tokenisation/", DocController.wordTokenise);
 
 router.post("/markedReady", DocController.markedReadySeq);

@@ -235,6 +235,47 @@ exports.getAssignedOfAUser = async (req, res) => {
   }
 };
 
+exports.getAnalyticsUserWise = async (req, res) => {
+  try {
+    const docs = await DocItemsModel.aggregate([
+      {
+        $sort: {
+          lineNo: 1,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "assignedTo",
+          foreignField: "_id",
+          as: "users",
+        },
+      },
+      {
+        $group: {
+          _id: {
+            assignedTo: "$assignedTo",
+            user: {
+              $first: "$users",
+            },
+          },
+          input: {
+            $push: "$$ROOT",
+          },
+        },
+      },
+    ]);
+    return res.status(200).json({
+      analytics: docs,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
 exports.wordTokenise = async (req, res) => {
   try {
     const sentence = req.body.input;
