@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.56473ae2.css",
-    "main.js": "/static/js/main.5d5752f8.js",
+    "main.css": "/static/css/main.73e2c67f.css",
+    "main.js": "/static/js/main.e26ce80b.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
-    "static/media/maldives.jpg": "/static/media/maldives.d4559610b248d766c2d3.jpg",
-    "static/media/grand-canyon.jpg": "/static/media/grand-canyon.39218a1999c0355e2df0.jpg",
     "static/media/rome.jpg": "/static/media/rome.9e572ecfafef196f5f54.jpg",
-    "static/media/camera.jpg": "/static/media/camera.51e0baea845cde0f0463.jpg",
+    "static/media/user.png": "/static/media/user.f1ac2f85ba77d724d0cc.png",
+    "static/media/doc.png": "/static/media/doc.12d57c32117afddc2063.png",
+    "static/media/pos.png": "/static/media/pos.2f42e35047681149c5ec.png",
+    "static/media/analytics.jpg": "/static/media/analytics.49ef5d9e0c4d60ebaad3.jpg",
     "index.html": "/index.html",
-    "main.56473ae2.css.map": "/static/css/main.56473ae2.css.map",
-    "main.5d5752f8.js.map": "/static/js/main.5d5752f8.js.map",
+    "main.73e2c67f.css.map": "/static/css/main.73e2c67f.css.map",
+    "main.e26ce80b.js.map": "/static/js/main.e26ce80b.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.56473ae2.css",
-    "static/js/main.5d5752f8.js"
+    "static/css/main.73e2c67f.css",
+    "static/js/main.e26ce80b.js"
   ]
 }
