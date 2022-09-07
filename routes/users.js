@@ -28,4 +28,15 @@ router.get(
   }
 );
 
+router.delete(
+  "/id/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res, next) => {
+    const user = await UserModel.deleteOne({ _id: req.params.id });
+    res.status(200).json({
+      status: "success",
+    });
+  }
+);
+
 module.exports = router;
