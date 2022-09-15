@@ -39,6 +39,7 @@ router.get(
   DocController.getAnalyticsUserWise
 );
 router.post("/word-tokenisation/", DocController.wordTokenise);
+router.post("/sentence-tokenisation/", DocController.sentenceTokenise);
 
 router.post("/markedReady", DocController.markedReadySeq);
 

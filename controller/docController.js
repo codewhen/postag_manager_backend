@@ -11,8 +11,11 @@ exports.addNewDoc = async (req, res) => {
   }
   try {
     const doc = await DocModel.create({ docName: req.body.docName });
-    const replacedInput = req.body.input.replaceAll("|", "।");
-    const items = replacedInput.split("।");
+    let replacedInput = req.body.input.replaceAll("|", "।");
+    console.log(replacedInput);
+    const items = replacedInput.split(/[!?।]+/);
+    console.log("debug");
+    console.log(items);
     let itemsParsed = [];
     for (let i = 0; i < items.length; i++) {
       if (!items[i]) {
@@ -20,7 +23,13 @@ exports.addNewDoc = async (req, res) => {
       }
       const itemP = await DocItemsModel.create({
         docId: doc._id,
-        input: items[i].trim(),
+        input: items[i]
+          .trim()
+          .split(" ")
+          .map((e) => {
+            return e.split("\\")[0];
+          })
+          .join(" "),
         lineNo: i + 1,
       });
       itemsParsed.push(itemP);
@@ -288,6 +297,36 @@ exports.wordTokenise = async (req, res) => {
     };
 
     PythonShell.run("tokeniser.py", options, function (err, result) {
+      if (err) throw err;
+      // result is an array consisting of messages collected
+      //during execution of script.
+      console.log("result: ", result);
+      res.send(result);
+    });
+
+    // return res.status(200).json({
+    //   output: output,
+    // });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err,
+    });
+  }
+};
+
+exports.sentenceTokenise = async (req, res) => {
+  try {
+    const sentence = req.body.input;
+
+    let options = {
+      mode: "json",
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: "scripts", //If you are having python_test.py script in same folder, then it's optional.
+      args: [sentence], //An argument which can be accessed in the script using sys.argv[1]
+    };
+
+    PythonShell.run("sentence_tokeniser.py", options, function (err, result) {
       if (err) throw err;
       // result is an array consisting of messages collected
       //during execution of script.
