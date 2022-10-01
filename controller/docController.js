@@ -21,15 +21,19 @@ exports.addNewDoc = async (req, res) => {
       if (!items[i]) {
         continue;
       }
+      input = items[i]
+        .trim()
+        .split(" ")
+        .map((e) => {
+          return e.split("\\")[0];
+        })
+        .join(" ");
+      if (!input) {
+        continue;
+      }
       const itemP = await DocItemsModel.create({
         docId: doc._id,
-        input: items[i]
-          .trim()
-          .split(" ")
-          .map((e) => {
-            return e.split("\\")[0];
-          })
-          .join(" "),
+        input: input,
         lineNo: i + 1,
       });
       itemsParsed.push(itemP);
